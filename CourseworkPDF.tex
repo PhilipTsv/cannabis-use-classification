@@ -1,0 +1,1018 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+% These packages are used by latex to generate the tex document
+\usepackage{breakurl}
+\usepackage{graphicx, verbatim}
+\usepackage{amsmath}
+\usepackage{amscd}
+\usepackage{lipsum}
+\usepackage{enumitem}
+\usepackage{todonotes}
+\usepackage[tableposition=top]{caption}
+\usepackage{ifthen}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{inconsolata}
+\usepackage{url}
+\setlength{\textwidth}{6.5in} 
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0in} 
+\setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{-1.5cm}
+\setlength{\parindent}{0cm}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor   = red %Colour of citations
+}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+% Title and Author Name
+\title{Coursework (CM3111) \\ Big Data Analytics}
+\author{Philip Tsvetanov \\ 1408561}
+
+\maketitle
+
+\section{Data Exploration}
+
+\subsection{Data Choice}
+In modern days, there is a new field of research that focuses on finding a problem before it even has happened - it's way easier to prevent bad human traits than to fix their results. Traits that are different for each person - like susceptance to sickness, either physical (Diabetes, allergies, cancer) or mental (depression, suicide, radical ideologies) - might easily diagnosed in the future, which would warn the people to stay alert at any potential signs. Millions of lives can be saved and a lot of pain can be evaded if we use such scientific methods. One of the things that will make that possible is working with Big Data. In my coursework I am using a data set from a poll where the participants were asked questions that relate to three major topics: personal information, personality traits and drug consumption. \\
+  
+I downloaded my data set from the UCI Machine Learning Repository on 30.10.2017. Link to the data set: http://archive.ics.uci.edu/ml/datasets/Drug+consumption+\%28quantified\%29# \\
+
+
+\subsection{Technology-Platform}
+I chose not to use and Big Data tools, because my data set consisted of just less than 2,000 rows, so I found that working with standard tools like R and RStudio to be sufficient for the computation that were needed for this task.
+
+\subsection{Problem Statement & Data Exploration}
+This data set consists of 1885 respondents that got surveyed for their drug usage. Note that this does not include only illegal substances, but also more trivial substances like Alcohol, Nicotine and Caffeine consumption. The aim is to predict weather a person is a user or a non-user of a said drug - a classification problem. The authors provided several different problems in the data set description that can be tackled, and I have chosen to predict weather a certain participant is a cannabis consumer or not. Cannabis is perhaps the most popular illegal drug in our society and it's been target of great public debate over the past years. Some countries and states within the USA have gone so far to allow its recreational or medical usage. I have seen and heard of many young people to engage in Cannabis consumption during their break at work and this could be quite dangerous for the employee themselves, the other employees, the clients and the image of the company, if an incident was to occur. A tool that can accurately predict whether a person is likely to be a cannabis user or not could be used by companies to evaluate potential Cannabis users that are interviewing for a job and reconsider them in cases where the job requires working in risk-rich environments. Of course, if such a tool was developed, it can be used to predict other types of drug usage as well.\\
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#setting up working directory}
+\hlkwd{getwd}\hlstd{()}
+\end{alltt}
+\begin{verbatim}
+## [1] "D:/My Documents/Computer Science 3/BigData"
+\end{verbatim}
+\begin{alltt}
+\hlkwd{setwd}\hlstd{(}\hlstr{"D:/My Documents/Computer Science 3/BigData/"}\hlstd{)}
+
+\hlcom{#reding file}
+\hlstd{df} \hlkwb{=} \hlkwd{read.csv}\hlstd{(}\hlstr{'drug_consumption.data'}\hlstd{,} \hlkwc{header}\hlstd{=T,} \hlkwc{na.strings}\hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{""}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Time to explore the data
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{cat}\hlstd{(}\hlstr{"Number of columns: "}\hlstd{,} \hlkwd{ncol}\hlstd{(df))}
+\end{alltt}
+\begin{verbatim}
+## Number of columns:  32
+\end{verbatim}
+\begin{alltt}
+\hlkwd{cat}\hlstd{(}\hlstr{"Number of columns: "}\hlstd{,} \hlkwd{nrow}\hlstd{(df))}
+\end{alltt}
+\begin{verbatim}
+## Number of columns:  1884
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+The data set consists of 1885 rows and 32 columns. 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{names}\hlstd{(df)}
+\end{alltt}
+\begin{verbatim}
+##  [1] "X1"        "X0.49788"  "X0.48246"  "X.0.05921" "X0.96082" 
+##  [6] "X0.12600"  "X0.31287"  "X.0.57545" "X.0.58331" "X.0.91699"
+## [11] "X.0.00665" "X.0.21712" "X.1.18084" "CL5"       "CL2"      
+## [16] "CL0"       "CL2.1"     "CL6"       "CL0.1"     "CL5.1"    
+## [21] "CL0.2"     "CL0.3"     "CL0.4"     "CL0.5"     "CL0.6"    
+## [26] "CL0.7"     "CL0.8"     "CL0.9"     "CL0.10"    "CL2.2"    
+## [31] "CL0.11"    "CL0.12"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+The columns are named that way, because the data has went through a normalization process, but each attribute is explained in the data set's webpage. \\
+
+As we continue exploring the data we have to start pre-processing it, so we can understand it better, so the next paragraph could be considered as part of both \textit{Data Exploration} and \textit{Preprocessing} subsections.
+\\
+First thing we want to process are the features It will be hard to work with their default labels.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{names}\hlstd{(df)} \hlkwb{=}\hlkwd{c}\hlstd{(}\hlstr{'ID'}\hlstd{,}\hlstr{'Age'}\hlstd{,}\hlstr{'Gender'}\hlstd{,} \hlstr{'Education'}\hlstd{,} \hlstr{'Country'}\hlstd{,} \hlstr{'Ethnicity'}\hlstd{,} \hlstr{'Nscore'}\hlstd{,} \hlstr{'Escore'}\hlstd{,}
+             \hlstr{'Oscore'}\hlstd{,} \hlstr{'Ascore'}\hlstd{,} \hlstr{'Cscore'}\hlstd{,} \hlstr{'Impulsiveness'}\hlstd{,} \hlstr{'Sensation'}\hlstd{,}\hlstr{'Alcohol'}\hlstd{,} \hlstr{'Amphet'}\hlstd{,} \hlstr{'Amyl'}\hlstd{,}
+             \hlstr{'Benzos'}\hlstd{,} \hlstr{'Caffeine'}\hlstd{,} \hlstr{'Cannabis'}\hlstd{,} \hlstr{'Chocolate'}\hlstd{,} \hlstr{'Cocaine'}\hlstd{,} \hlstr{'Crack'}\hlstd{,} \hlstr{'Ecstasy'}\hlstd{,} \hlstr{'Heroin'}\hlstd{,}
+          \hlstr{'Ketamine'}\hlstd{,} \hlstr{'Legals'}\hlstd{,} \hlstr{'LSD'}\hlstd{,} \hlstr{'Meth'}\hlstd{,} \hlstr{'Mushrooms'}\hlstd{,} \hlstr{'Nicotine'}\hlstd{,} \hlstr{'Semer'}\hlstd{,} \hlstr{'VSA'}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Now that the attributes are labeled we can have a look at their values:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{head}\hlstd{(df)}
+\end{alltt}
+\begin{verbatim}
+##   ID      Age   Gender Education  Country Ethnicity   Nscore   Escore
+## 1  2 -0.07854 -0.48246   1.98437  0.96082  -0.31685 -0.67825  1.93886
+## 2  3  0.49788 -0.48246  -0.05921  0.96082  -0.31685 -0.46725  0.80523
+## 3  4 -0.95197  0.48246   1.16365  0.96082  -0.31685 -0.14882 -0.80615
+## 4  5  0.49788  0.48246   1.98437  0.96082  -0.31685  0.73545 -1.63340
+## 5  6  2.59171  0.48246  -1.22751  0.24923  -0.31685 -0.67825 -0.30033
+## 6  7  1.09449 -0.48246   1.16365 -0.57009  -0.31685 -0.46725 -1.09207
+##     Oscore   Ascore   Cscore Impulsiveness Sensation Alcohol Amphet Amyl
+## 1  1.43533  0.76096 -0.14277      -0.71126  -0.21575     CL5    CL2  CL2
+## 2 -0.84732 -1.62090 -1.01450      -1.37983   0.40148     CL6    CL0  CL0
+## 3 -0.01928  0.59042  0.58489      -1.37983  -1.18084     CL4    CL0  CL0
+## 4 -0.45174 -0.30172  1.30612      -0.21712  -0.21575     CL4    CL1  CL1
+## 5 -1.55521  2.03972  1.63088      -1.37983  -1.54858     CL2    CL0  CL0
+## 6 -0.45174 -0.30172  0.93949      -0.21712   0.07987     CL6    CL0  CL0
+##   Benzos Caffeine Cannabis Chocolate Cocaine Crack Ecstasy Heroin Ketamine
+## 1    CL0      CL6      CL4       CL6     CL3   CL0     CL4    CL0      CL2
+## 2    CL0      CL6      CL3       CL4     CL0   CL0     CL0    CL0      CL0
+## 3    CL3      CL5      CL2       CL4     CL2   CL0     CL0    CL0      CL2
+## 4    CL0      CL6      CL3       CL6     CL0   CL0     CL1    CL0      CL0
+## 5    CL0      CL6      CL0       CL4     CL0   CL0     CL0    CL0      CL0
+## 6    CL0      CL6      CL1       CL5     CL0   CL0     CL0    CL0      CL0
+##   Legals LSD Meth Mushrooms Nicotine Semer VSA
+## 1    CL0 CL2  CL3       CL0      CL4   CL0 CL0
+## 2    CL0 CL0  CL0       CL1      CL0   CL0 CL0
+## 3    CL0 CL0  CL0       CL0      CL2   CL0 CL0
+## 4    CL1 CL0  CL0       CL2      CL2   CL0 CL0
+## 5    CL0 CL0  CL0       CL0      CL6   CL0 CL0
+## 6    CL0 CL0  CL0       CL0      CL6   CL0 CL0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+The first thing we see are the different types of attributes. As I mentioned earlier there are three major types of attributes: The first one is \textit{Personal information} and the attributes that represent that are Age, Gender, Education, Ethnicity. 
+\\
+Then we have \textit{Personal traits}, which are based on NEO-FFI-R model (neuroticism, extraversion, openness to experience, agreeableness, and conscientiousness). In that order, the attributes that represent these are Nscore, Escore, Oscore, Ascore, Cscore. Aside from this we also have BIS-11 (impulsivity), and ImpSS (sensation seeking), which correspond to "Impulsiveness" and "Sensation" in the data set.
+\\
+The last group are the drug consumptions themselves, with the label of each attribute describing the drug that is being evaluated. Some of the labels are shortened for improving work efficiency while developing this report, such as:
+\begin{itemize}
+\item "Amyl" refers to \textit{Amyl nitrite consumption}
+\item "Legals" refers to \textit{legal highs} - over-the-counter drugs
+\item "Meth" refers to \textit{Methadone}
+\item "VSA" refers to \textit{Volatile substances}
+\\
+
+When we look at the first two groups, we see that the data is normalized and it's not clear what each value represents. However, all of that information can be found on the data set's web page (linked above). Here is an example:
+
+\begin{itemize}
+\item 3. Gender (Real) is gender of participant: 
+\item  Value    Meaning Cases Fraction 
+\item  0.48246  Female  942   49.97\% 
+\item -0.48246  Male    943   50.03\% 
+\end{itemize}
+We can see that in the \textit{Gender} attribute the value \textit{0.48246} represents a female participant and \textit{0.48246} represent a male.
+\\
+
+When we consider the third group - the drug consumption - we see that the data is in form of factors:
+\begin{itemize}
+\item CL0 Never Used
+\item CL1 Used over a Decade Ago
+\item CL2 Used in Last Decade 
+\item CL3 Used in Last Year 
+\item CL4 Used in Last Month
+\item CL5 Used in Last Week 
+\item CL6 Used in Last Day
+\end{itemize}
+With "CL0" being the lowest possible usage and "CL6" - the highest.
+
+\\
+\subsection{Pre-processing}
+Now that we know how the data in this set looks like, we can look at the label distribution of the Cannabis attribute.
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-1-1} 
+
+\end{knitrout}
+\caption {Cannabis use}
+\label{fig1}
+\end {center}
+\end {figure}
+\textit{Figure1} gives us a rough idea how often the participants consume Cannabis. 
+As we can see, the distribution of this attribute is more or less even, with CL0 and CL6 slightly above the rest, but quite even, which means the data is not skewed, which means that it is a favourable candidate for prediction. \\
+However, the suggested problem is to do a binary classification, with the two suggested cases being "Non-User" (CL0 and CL1) and "User" (CL2 - CL6). That means we have to reassign the 7 different levels into two new ones:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{levels}\hlstd{(df}\hlopt{$}\hlstd{Cannabis)} \hlkwb{=} \hlkwd{list}\hlstd{(}\hlstr{"NonU"} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"CL0"}\hlstd{,} \hlstr{"CL1"}\hlstd{),}
+                           \hlstr{"User"} \hlstd{=} \hlkwd{c}\hlstd{(}\hlstr{"CL2"}\hlstd{,}\hlstr{"CL3"}\hlstd{,}\hlstr{"CL4"}\hlstd{,} \hlstr{"CL5"}\hlstd{,}\hlstr{"CL6"}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+And once we do that, the diagram looks like this:
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{barplot}\hlstd{(}\hlkwd{table}\hlstd{(df}\hlopt{$}\hlstd{Cannabis),} \hlkwc{xlab} \hlstd{=} \hlstr{"Frequency"}\hlstd{,} \hlkwc{ylab} \hlstd{=} \hlstr{"Number of Participants"}\hlstd{,} \hlkwc{las} \hlstd{=} \hlnum{1}\hlstd{,} \hlkwc{ylim}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0}\hlstd{,}\hlnum{1400}\hlstd{),} \hlkwc{col} \hlstd{=} \hlkwd{rainbow}\hlstd{(}\hlnum{3}\hlstd{))}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-2-1} 
+
+\end{knitrout}
+\caption {Cannabis use - after level reassignment}
+\label{fig2}
+\end {center}
+\end {figure}
+
+Taking \textit{Figure2} into consideration, the two levels of the predictor are reasonably well-balanced with the non-users being about twice as less as the users. This will hopefully contribute in producing good results in our model.
+\\
+
+The next step is to see if there are any null values in our data:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{naCounts} \hlkwb{=} \hlkwd{sapply}\hlstd{(df,}\hlkwa{function}\hlstd{(}\hlkwc{x}\hlstd{)} \hlkwd{sum}\hlstd{(}\hlkwd{is.na}\hlstd{(x)))}
+\hlstd{naCounts}
+\end{alltt}
+\begin{verbatim}
+##            ID           Age        Gender     Education       Country 
+##             0             0             0             0             0 
+##     Ethnicity        Nscore        Escore        Oscore        Ascore 
+##             0             0             0             0             0 
+##        Cscore Impulsiveness     Sensation       Alcohol        Amphet 
+##             0             0             0             0             0 
+##          Amyl        Benzos      Caffeine      Cannabis     Chocolate 
+##             0             0             0             0             0 
+##       Cocaine         Crack       Ecstasy        Heroin      Ketamine 
+##             0             0             0             0             0 
+##        Legals           LSD          Meth     Mushrooms      Nicotine 
+##             0             0             0             0             0 
+##         Semer           VSA 
+##             0             0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+There aren't any so N/A values are not an issue for this data set.
+\\
+
+Since we are interested primarily in Cannabis, it would be ideal to drop some features that do not correlate to our predictor. 
+The \textit{Semeron} feature is a fictitious drug that was added to the survey in order to identify "over-claimers" - people that would claim they used all of the drugs on the list for one reason or another.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{summary}\hlstd{(df}\hlopt{$}\hlstd{Semer)}
+\end{alltt}
+\begin{verbatim}
+##  CL0  CL1  CL2  CL3  CL4 
+## 1876    2    3    2    1
+\end{verbatim}
+\begin{alltt}
+\hlcom{#We can check which these rows are}
+\hlstd{semerRows} \hlkwb{=} \hlkwd{which}\hlstd{(}\hlopt{!}\hlstd{df}\hlopt{$}\hlstd{Semer} \hlopt{==} \hlstr{'CL0'}\hlstd{)}
+\hlkwd{cat}\hlstd{(}\hlstr{"Rows where Semeron is not equals to CL0: "}\hlstd{, semerRows)}
+\end{alltt}
+\begin{verbatim}
+## Rows where Semeron is not equals to CL0:  727 817 1516 1533 1698 1769 1806 1823
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+As we can see it's only 8 participants that have answered with anything else other than CLO - "Never used". This is a negligible number and we can easily exclude the from the data set, because we don't know if the data in these rows is correct. If a person submitted a false answer to this question, they might be "over-claimers".
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{df} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{semerRows,]}
+\hlstd{df}\hlopt{$}\hlstd{Semer} \hlkwb{=} \hlkwa{NULL}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\\
+
+We also do not need the participant's ID for our machine-learning task.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{df}\hlopt{$}\hlstd{ID} \hlkwb{=} \hlkwa{NULL}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\\
+
+Now we should set the rest of the categorical attributes as "factors"
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Making sure R knows our attributes are factors (R sees them as chars otherwise)}
+\hlstd{df}\hlopt{$}\hlstd{Cannabis} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Cannabis)}
+\hlstd{df}\hlopt{$}\hlstd{Chocolate} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Chocolate)}
+\hlstd{df}\hlopt{$}\hlstd{Caffeine} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Caffeine)}
+\hlstd{df}\hlopt{$}\hlstd{Nicotine} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Nicotine)}
+\hlstd{df}\hlopt{$}\hlstd{Alcohol} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Alcohol)}
+\hlstd{df}\hlopt{$}\hlstd{Amphet} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Amphet)}
+\hlstd{df}\hlopt{$}\hlstd{Amyl} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Amyl)}
+\hlstd{df}\hlopt{$}\hlstd{Benzos} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Benzos)}
+\hlstd{df}\hlopt{$}\hlstd{Cocaine} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Cocaine)}
+\hlstd{df}\hlopt{$}\hlstd{Crack} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Crack)}
+\hlstd{df}\hlopt{$}\hlstd{Ecstasy} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Ecstasy)}
+\hlstd{df}\hlopt{$}\hlstd{Heroin} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Heroin)}
+\hlstd{df}\hlopt{$}\hlstd{Ketamine} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Ketamine)}
+\hlstd{df}\hlopt{$}\hlstd{Legals} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Legals)}
+\hlstd{df}\hlopt{$}\hlstd{LSD} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{LSD)}
+\hlstd{df}\hlopt{$}\hlstd{Meth} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Meth)}
+\hlstd{df}\hlopt{$}\hlstd{Mushrooms} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Mushrooms)}
+\hlstd{df}\hlopt{$}\hlstd{Nicotine} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{Nicotine)}
+\hlstd{df}\hlopt{$}\hlstd{VSA} \hlkwb{=} \hlkwd{as.factor}\hlstd{(df}\hlopt{$}\hlstd{VSA)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\\
+Now that we're done with the pre-processing, it's a good idea to back up our dataframe, in case we make some changes to it that need to be reverted in the future. 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#backing up df}
+\hlstd{df_backup} \hlkwb{=} \hlstd{df}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\section{Modelling/Classification}
+We start by installing randomForest in our Environment. Then we load it.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#We have to install package the first time we use it}
+\hlcom{#install.packages('e1071', dependencies=TRUE)}
+\hlkwd{require}\hlstd{(randomForest)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: randomForest}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# randomForest 4.6-12}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Type rfNews() to see new features/changes/bug fixes.}}\end{kframe}
+\end{knitrout}
+\\
+
+\subsection{Dividing the data}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#get a seed for the sampling}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlcom{#sample the data}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.7}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlcom{#create train and test sets}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+I use random sampling which ensures we get random and robust results in our \textit{train} and \textit{test} datasets. This way we make sure the results are not biased by the order of the data in the data set. We can see if the entries have distributet evenly among the two data sets:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{table}\hlstd{(train}\hlopt{$}\hlstd{Cannabis)}
+\end{alltt}
+\begin{verbatim}
+## 
+## NonU User 
+##  432  881
+\end{verbatim}
+\begin{alltt}
+\hlkwd{table}\hlstd{(test}\hlopt{$}\hlstd{Cannabis)}
+\end{alltt}
+\begin{verbatim}
+## 
+## NonU User 
+##  187  376
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+As we can see there are roughly twice as many Cannabis users as non-users in both sets, so the distribution is even.
+\\
+
+\subsection{Build a model using training set}
+My work is based on a classification problem, so I decided to use the model that deals with classification tasks the best - the  \textit{randomForest}. However, we need to ensure we use the right amount of trees in our forest by measuring the accuracy of the model when the forest has a different amount of trees. 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Variable that holds the number of trees}
+\hlstd{ntrees} \hlkwb{=} \hlnum{100}
+\hlcom{#Dataframe that stores accuracies at the corresponding number of trees}
+\hlstd{results} \hlkwb{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{NTrees}\hlstd{=}\hlkwd{as.numeric}\hlstd{(),} \hlkwc{Accuracy}\hlstd{=}\hlkwd{as.numeric}\hlstd{())}
+
+\hlcom{#For-loop}
+\hlkwa{for} \hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(train[,}\hlopt{-}\hlnum{18}\hlstd{], train[,}\hlnum{18}\hlstd{],}
+    \hlkwc{xtest}\hlstd{=test[,}\hlopt{-}\hlnum{18}\hlstd{],} \hlkwc{ytest}\hlstd{=test[,}\hlnum{18}\hlstd{],}
+    \hlkwc{ntree}\hlstd{=ntrees,} \hlkwc{proximity}\hlstd{=}\hlnum{TRUE}\hlstd{)}
+
+  \hlcom{#Test the RF model for this run}
+  \hlstd{preds} \hlkwb{=} \hlkwd{levels}\hlstd{(train[,}\hlnum{18}\hlstd{])[fit}\hlopt{$}\hlstd{test}\hlopt{$}\hlstd{predicted]}
+
+  \hlcom{#Calculate accuracy}
+  \hlstd{auc} \hlkwb{=} \hlstd{(}\hlkwd{sum}\hlstd{(preds} \hlopt{==}\hlstd{test[,}\hlnum{18}\hlstd{])}\hlopt{/}\hlkwd{nrow}\hlstd{(test))}\hlopt{*}\hlnum{100}
+  \hlstd{results} \hlkwb{=} \hlkwd{rbind}\hlstd{(results,} \hlkwd{data.frame}\hlstd{(}\hlkwc{NTrees}\hlstd{=ntrees,}\hlkwc{Accuracy}\hlstd{=auc))}
+
+  \hlcom{#Increment trees}
+  \hlstd{ntrees} \hlkwb{=} \hlstd{ntrees} \hlopt{+} \hlnum{100}
+\hlstd{\}}\hlcom{# end for loop}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+And here's the graph:
+
+\begin{figure}[H]
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Plot the results}
+\hlcom{#We need to load ggplot library the first time using it}
+\hlkwd{library}\hlstd{(ggplot2)}
+\hlkwd{ggplot}\hlstd{(results,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=NTrees))} \hlopt{+}
+\hlkwd{geom_line}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= Accuracy))} \hlopt{+}
+\hlkwd{scale_x_continuous}\hlstd{(}\hlkwc{name} \hlstd{=} \hlstr{"NTrees"}\hlstd{,} \hlkwc{breaks} \hlstd{=} \hlkwd{seq}\hlstd{(}\hlnum{100}\hlstd{,}\hlnum{1000}\hlstd{,}\hlkwc{by}\hlstd{=}\hlnum{100}\hlstd{))} \hlopt{+}
+\hlkwd{scale_y_continuous}\hlstd{(}\hlkwc{name} \hlstd{=} \hlstr{"PredictionAccuracy"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-3-1} 
+
+\end{knitrout}
+\caption {Difference in accuracy with ntree 100-1000}
+\label{fig3}
+\end {center}
+\end {figure}
+\\
+
+As we can see in \textit{Figure3} the best results are produced when \textit{ntree = 400}, so that is what I'm going to use in my model.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)} \hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+\hlcom{#print out the results}
+\hlstd{fit}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+##  randomForest(formula = as.factor(Cannabis) ~ ., data = train,      ntree = 400) 
+##                Type of random forest: classification
+##                      Number of trees: 400
+## No. of variables tried at each split: 5
+## 
+##         OOB estimate of  error rate: 11.81%
+## Confusion matrix:
+##      NonU User class.error
+## NonU  345   87  0.20138889
+## User   68  813  0.07718502
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+We build our model and run the "fit" command which gives us a useful summary of the forest. It has used 400 trees as we requested and 5 variables at each split of the tree. The out-of-bag error rate is about 12\%, which is quite good for our first try. The command also gives us the confusion matrix - we will focus on that later.
+\\
+
+\subsection{Test and evaluate your model}
+
+Here we test our model with the test set.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Making the prediction and storing it into a vector}
+\hlstd{probabilities} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata} \hlstd{= test[,}\hlopt{-}\hlnum{18}\hlstd{],} \hlkwc{type}\hlstd{=}\hlstr{"prob"}\hlstd{)[,}\hlnum{2}\hlstd{]}
+\hlcom{#calculating accuracy}
+\hlstd{test_accuracy} \hlkwb{=} \hlkwd{mean}\hlstd{(probabilities}\hlopt{==}\hlstd{test}\hlopt{$}\hlstd{Cannabis)}
+\hlcom{#Printing out accuracy}
+\hlkwd{cat}\hlstd{(}\hlstr{"Test accuracy: "}\hlstd{, test_accuracy)}
+\end{alltt}
+\begin{verbatim}
+## Test accuracy:  0
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+The test accuracy we receive after we complete the predictions is almost 90\%, which is a satisfying result for out first model. We can get a better idea about our results with the Area Under Curve (AUC) number.
+\\
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Installing ROCR package if it's the first time it's used}
+\hlcom{#install.packages("ROCR")}
+\hlkwd{require}\hlstd{(ROCR)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: ROCR}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: gplots}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'gplots'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following object is masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  lowess}}\begin{alltt}
+\hlcom{#Calculating accuracy}
+\hlstd{predictions} \hlkwb{=} \hlkwd{prediction}\hlstd{(probabilities, test}\hlopt{$}\hlstd{Cannabis)}
+
+\hlcom{#Calculating Area under curve}
+\hlstd{auc} \hlkwb{=} \hlkwd{performance}\hlstd{(predictions,} \hlkwc{measure}\hlstd{=}\hlstr{"auc"}\hlstd{)}
+\hlstd{auc} \hlkwb{=} \hlstd{auc}\hlopt{@}\hlkwc{y.values}\hlstd{[[}\hlnum{1}\hlstd{]]}
+\hlkwd{cat}\hlstd{(}\hlstr{"Area Under Curve: "}\hlstd{, auc)}
+\end{alltt}
+\begin{verbatim}
+## Area Under Curve:  0.9530877
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\\
+
+We get a result of about 0.95, which is a only a few False Positive results among our predictions, however lets visialize this.
+
+
+\begin {figure}[H]
+\begin {center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{performance} \hlkwb{=} \hlkwd{performance}\hlstd{(predictions,} \hlkwc{measure} \hlstd{=} \hlstr{"tpr"}\hlstd{,} \hlkwc{x.measure} \hlstd{=} \hlstr{"fpr"}\hlstd{)}
+\hlkwd{plot}\hlstd{(performance)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-4-1} 
+
+\end{knitrout}
+\caption {Area Under Curve Plot: True Pos. vs False Pos.}
+\label{fig4}
+\end {center}
+\end {figure}
+
+As we see on \textit{Figure4} the amount of False Positives is quite small. Although AUC is not the most important calcultion of the accuracy, it is important when we are dealing with healthcare - a false prediction might lead to a wrong treatment, etc. And in this case - if this was model was to be implemented as a method of predicting potential drug addicts, we wouldn't want to diagnose a healthy person with a potential addiction.
+\\
+
+\subsection{Report and discuss results}
+The first model achieved almost 90\% accuracy on it's first run. This is a good result which might be caused by the steps we took to ensure a good fit: we are using randomForest, which deals quite well with classification problems, we calculated the optimal number of trees, we removed variables that have no significance to the accuracy - "Semeron" and "ID".
+\\
+
+\section{Improving Performance}
+In this section I am attempting to improve the accuracy of the model by implementing different techniques.
+\subsection{Exploring different mtry valules}
+
+randomForest takes an argument "mtry" - that represents the number of variables taken into consideration on each split of the tree. Changing this number might yield better results. To do this, we test the model's accuracy with the different mtry values it can take - they vary from the square root of the number of attributes (in this case, 5) to the number of attributes minus one (in our case, 29).\\
+For each model, we save the out-of-bag error and the test error \textit{(Test error = 1 - Accuracy)} into vectors and plot them on a graph to see which value of mtry produces the best result.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Creating vectors where error rates will be stored}
+\hlstd{oobError} \hlkwb{=} \hlkwd{double}\hlstd{(}\hlnum{25}\hlstd{)}
+\hlstd{testError} \hlkwb{=} \hlkwd{double}\hlstd{(}\hlnum{25}\hlstd{)}
+\hlstd{medianError} \hlkwb{=} \hlkwd{double}\hlstd{(}\hlnum{25}\hlstd{)}
+\hlcom{#mtry = 0}
+
+\hlcom{#For each mtry fit a new model and measure test and oob error rates}
+\hlkwa{for}\hlstd{(mtry} \hlkwa{in} \hlkwd{round}\hlstd{(}\hlkwd{sqrt}\hlstd{(}\hlkwd{ncol}\hlstd{(test)))}\hlopt{:}\hlstd{(}\hlkwd{ncol}\hlstd{(test))}\hlopt{-}\hlnum{1}\hlstd{)}
+\hlstd{\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=mtry,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError[mtry}\hlopt{-}\hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{18}\hlstd{])}
+  \hlstd{testError[mtry}\hlopt{-}\hlnum{5}\hlstd{]} \hlkwb{=} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+  \hlstd{medianError[mtry}\hlopt{-}\hlnum{5}\hlstd{]} \hlkwb{=}  \hlstd{(oobError[mtry}\hlopt{-}\hlnum{5}\hlstd{]}\hlopt{+}\hlstd{testError[mtry}\hlopt{-}\hlnum{5}\hlstd{])}\hlopt{/}\hlnum{2}
+\hlstd{\}}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Once we loop through all the different possibilities, we create a matrix of our results and plot it using the library ggplot2.
+
+\begin {figure}[H]
+\begin {center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{mtryNum} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlnum{5}\hlopt{:}\hlnum{29}\hlstd{)}
+\hlcom{#creating data frame}
+\hlstd{testData} \hlkwb{=} \hlkwd{data.frame}\hlstd{(}\hlkwd{as.vector}\hlstd{(testError),} \hlkwd{as.vector}\hlstd{(oobError),}
+                      \hlkwd{as.vector}\hlstd{(medianError),} \hlkwd{as.vector}\hlstd{(mtryNum))}
+
+\hlkwd{ggplot}\hlstd{(testData,} \hlkwd{aes}\hlstd{(testData[,}\hlnum{4}\hlstd{]))} \hlopt{+}
+  \hlkwd{geom_line}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= testData[,}\hlnum{1}\hlstd{],} \hlkwc{colour} \hlstd{=} \hlstr{"testError"}\hlstd{))} \hlopt{+}
+  \hlkwd{geom_line}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= testData[,}\hlnum{3}\hlstd{],} \hlkwc{colour} \hlstd{=} \hlstr{"meanError"}\hlstd{) )} \hlopt{+}
+  \hlkwd{geom_line}\hlstd{(}\hlkwd{aes}\hlstd{(}\hlkwc{y} \hlstd{= testData[,}\hlnum{2}\hlstd{],} \hlkwc{colour} \hlstd{=} \hlstr{"oobError"}\hlstd{) )} \hlopt{+}
+  \hlkwd{scale_x_continuous}\hlstd{(}\hlkwc{name} \hlstd{=} \hlstr{"mtry"}\hlstd{,} \hlkwc{breaks} \hlstd{=} \hlkwd{seq}\hlstd{(}\hlnum{5}\hlstd{,}\hlnum{29}\hlstd{,}\hlkwc{by}\hlstd{=}\hlnum{2}\hlstd{))} \hlopt{+}
+  \hlkwd{scale_y_continuous}\hlstd{(}\hlkwc{name} \hlstd{=} \hlstr{"Error %"}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-5-1} 
+
+\end{knitrout}
+\caption {Plot of the test and oob error rates per mtry}
+\label{fig5}
+\end {center}
+\end {figure}
+
+The results that \textit{Figure5} produces slightly differ on each every model, but I have noticed that when \textit{mtry = 6} and \textit{mtry = 12} produce good results. That is why I decided to test out how it compares against the default value of mtry that randomForest picks (mtry = 5).
+\\
+
+In order to achieve consistency, we will run each test ten times and take the average results of the ten runs. We do this by creating a data frame where we would store the oob error and the test error for each of the values of mtry that we are testing.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#data frame for storing error rates}
+\hlstd{mtryTests} \hlkwb{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{type}\hlstd{=}\hlkwd{as.factor}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{)),}
+                       \hlkwc{errorRate}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{),}
+                       \hlkwc{mtry}\hlstd{=}\hlkwd{as.factor}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{5}\hlstd{,}\hlnum{5}\hlstd{,}\hlnum{6}\hlstd{,}\hlnum{6}\hlstd{,}\hlnum{12}\hlstd{,}\hlnum{12}\hlstd{)))}
+\hlcom{#variables for storing average error rates for each mtry}
+\hlstd{oobError} \hlkwb{=} \hlnum{0.0}
+\hlstd{testError} \hlkwb{=} \hlnum{0.0}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlcom{#mtry = 5}
+\hlcom{#Redistributing data sets}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlcom{#Fitting}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{5}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError} \hlkwb{=} \hlstd{oobError} \hlopt{+} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{18}\hlstd{])}
+  \hlstd{testError} \hlkwb{=} \hlstd{testError} \hlopt{+} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+\hlstd{\}}
+
+\hlcom{#When we're done we average out the error rates from the 10 tests and we save them}
+\hlstd{mtryTests}\hlopt{$}\hlstd{errorRate[}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{oobError}\hlopt{/}\hlnum{10}
+\hlstd{mtryTests}\hlopt{$}\hlstd{errorRate[}\hlnum{2}\hlstd{]} \hlkwb{=} \hlstd{testError}\hlopt{/}\hlnum{10}
+\hlcom{#And then we clear the variables}
+\hlstd{oobError} \hlkwb{=} \hlnum{0.0}
+\hlstd{testError} \hlkwb{=} \hlnum{0.0}
+
+\hlcom{#mtry = 6}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{6}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError} \hlkwb{=} \hlstd{oobError} \hlopt{+} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{18}\hlstd{])}
+  \hlstd{testError} \hlkwb{=} \hlstd{testError} \hlopt{+} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+\hlstd{\}}
+
+\hlstd{mtryTests}\hlopt{$}\hlstd{errorRate[}\hlnum{3}\hlstd{]} \hlkwb{=} \hlstd{oobError}\hlopt{/}\hlnum{10}
+\hlstd{mtryTests}\hlopt{$}\hlstd{errorRate[}\hlnum{4}\hlstd{]} \hlkwb{=} \hlstd{testError}\hlopt{/}\hlnum{10}
+\hlstd{oobError} \hlkwb{=} \hlnum{0.0}
+\hlstd{testError} \hlkwb{=} \hlnum{0.0}
+
+\hlcom{#mtry = 12}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{12}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError} \hlkwb{=} \hlstd{oobError} \hlopt{+} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{18}\hlstd{])}
+  \hlstd{testError} \hlkwb{=} \hlstd{testError} \hlopt{+} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+\hlstd{\}}
+
+\hlstd{mtryTests}\hlopt{$}\hlstd{errorRate[}\hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{oobError}\hlopt{/}\hlnum{10}
+\hlstd{mtryTests}\hlopt{$}\hlstd{errorRate[}\hlnum{6}\hlstd{]} \hlkwb{=} \hlstd{testError}\hlopt{/}\hlnum{10}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Once done, we plot the results on a graph:
+\begin {figure}[H]
+\begin {center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Needed fot rescaling}
+\hlkwd{library}\hlstd{(scales)}
+\hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=mtryTests,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=mtry,} \hlkwc{y}\hlstd{=errorRate,} \hlkwc{fill}\hlstd{=}\hlkwd{factor}\hlstd{(type)))} \hlopt{+}
+  \hlkwd{geom_bar}\hlstd{(}\hlkwc{stat}\hlstd{=}\hlstr{"identity"}\hlstd{,} \hlkwc{position}\hlstd{=}\hlstr{"dodge"}\hlstd{)} \hlopt{+}
+  \hlkwd{scale_fill_discrete}\hlstd{(}\hlkwc{name}\hlstd{=}\hlstr{"Error rates"}\hlstd{,}
+                      \hlkwc{breaks}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{),}
+                      \hlkwc{labels}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"OOB Error"}\hlstd{,} \hlstr{"Test Error"}\hlstd{))} \hlopt{+}
+  \hlkwd{xlab}\hlstd{(}\hlstr{"mtry"}\hlstd{)}\hlopt{+}\hlkwd{ylab}\hlstd{(}\hlstr{"Error rate"}\hlstd{)} \hlopt{+}
+  \hlkwd{scale_y_continuous}\hlstd{(}\hlkwc{limits}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0.075}\hlstd{,}\hlnum{0.125}\hlstd{),}\hlkwc{oob} \hlstd{= rescale_none)} \hlopt{+}
+  \hlkwd{theme_minimal}\hlstd{()}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-6-1} 
+
+\end{knitrout}
+\caption {Accuracy differency between mtry = 5 and mtry = 6}
+\label{fig6}
+\end {center}
+\end {figure}
+
+And as we see on \textit{Figure6}, the results don't vary by much, but \textit{mtry = 5} and \textit{mtry = 6} definitely provde better accuracy than \textit{mtry = 12}. \textit{mtry = 6} sometimes provides smaller oob error rate, but alwas has higher test error rate than \textit{mtry = 5}. This is why we will continue to use \textit{mtry = 5}.
+
+\subsection{Changing the training/testing set ratios}
+The next variable we will explore is the data set ratios of the training and testing sets. Depending on the data we have, a smaller or bigger training set can improve the accuracy of the model. We do this by changing the training and testing set ratios when we sample the data from the df data set and then measuring the oob and test error rates. We will look at three possibilities: a 75/25 distribution, a 80/20 and a 90/10.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Vector for storing accuracy}
+\hlstd{divisionTests} \hlkwb{=} \hlkwd{double}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlcom{#deviding 0.75 train/0.25 test}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.75}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlcom{#Fitting}
+\hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{6}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+\hlstd{probabilities} \hlkwb{=} \hlkwd{predict}\hlstd{(fit, test[,}\hlopt{-}\hlnum{18}\hlstd{])}
+\hlcom{#calculating accuracy and storing result}
+\hlstd{divisionTests[}\hlnum{1}\hlstd{]} \hlkwb{=} \hlkwd{mean}\hlstd{(probabilities}\hlopt{==}\hlstd{test}\hlopt{$}\hlstd{Cannabis)}
+
+\hlcom{#deviding 0.8 train/0.2 test}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{6}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+\hlstd{probabilities} \hlkwb{=} \hlkwd{predict}\hlstd{(fit, test[,}\hlopt{-}\hlnum{18}\hlstd{])}
+\hlstd{divisionTests[}\hlnum{2}\hlstd{]} \hlkwb{=} \hlkwd{mean}\hlstd{(probabilities}\hlopt{==}\hlstd{test}\hlopt{$}\hlstd{Cannabis)}
+
+\hlcom{#deviding 0.9 train/0.1 test}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.9}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{6}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+\hlstd{probabilities} \hlkwb{=} \hlkwd{predict}\hlstd{(fit, test[,}\hlopt{-}\hlnum{18}\hlstd{])}
+\hlstd{divisionTests[}\hlnum{3}\hlstd{]} \hlkwb{=} \hlkwd{mean}\hlstd{(probabilities}\hlopt{==}\hlstd{test}\hlopt{$}\hlstd{Cannabis)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+We plot the results:
+\begin {figure}[H]
+\begin {center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{mtryNum} \hlkwb{=} \hlkwd{c}\hlstd{(}\hlnum{5}\hlopt{:}\hlnum{29}\hlstd{)}
+\hlcom{#creating data frame}
+\hlstd{division} \hlkwb{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{Results}\hlstd{=}\hlkwd{rep}\hlstd{(divisionTests),} \hlkwc{Ratios}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"0.75"}\hlstd{,}\hlstr{"0.8"}\hlstd{,}\hlstr{"0.9"}\hlstd{))}
+\hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=division,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=Ratios,} \hlkwc{y}\hlstd{=Results))} \hlopt{+}
+  \hlkwd{geom_bar}\hlstd{(}\hlkwc{stat}\hlstd{=}\hlstr{"identity"}\hlstd{,} \hlkwc{fill}\hlstd{=}\hlstr{"steelblue"}\hlstd{)} \hlopt{+}
+  \hlkwd{scale_y_continuous}\hlstd{(}\hlkwc{limits}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0.84}\hlstd{,}\hlnum{0.94}\hlstd{),}\hlkwc{oob} \hlstd{= rescale_none)} \hlopt{+}
+  \hlkwd{theme_minimal}\hlstd{()}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-7-1} 
+
+\end{knitrout}
+\caption {Accuracy per different test/train set ratios}
+\label{fig7}
+\end {center}
+\end {figure}
+As we can see on \textit{Figure7} the 80/20 distribution provides the best results and that is what we will be using to improve our model.
+
+\subsection{Feature Selection}
+We can improve our model by picking the best features for our model. Since I have build a model with a good accuracy by using all the features, now we we attempt to get better results by removing some of the least important features.
+We can see a ranking of important features by creating a fit and calling the function \textit{varImpPlot}.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Create get a clean model}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{importance} \hlstd{=} \hlnum{TRUE}\hlstd{,} \hlkwc{mtry}\hlstd{=}\hlnum{6}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+The function will produce the following graph:
+\begin {figure}[H]
+\begin {center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{varImpPlot}\hlstd{(fit)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-8-1} 
+
+\end{knitrout}
+\caption {Variable Importance of the model}
+\label{fig8}
+\end {center}
+\end {figure}
+
+As we can see on \textit{Figure8} there are two different types of variable importance that randomForest takes into account. The left represents how much the accuracy of the model drops when each of the attributes is not used and the right one - the gini index.
+\\
+I notice that on the left  graph Caffeine is the only variable that has a significantly lower importance, but on the right both Crack and Heroin have relatevly low values. That is why we will remove each of those attributes from the model and see if we will receive an increase in performance.
+\\
+I do this in a similar fashion as the previous technique - by running the model 10 times and measuring the error rates of each run. Then we store them in a data frame and plot them on a graph. 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{#Creating data frame}
+\hlstd{tests} \hlkwb{=} \hlkwd{data.frame}\hlstd{(}\hlkwc{type}\hlstd{=}\hlkwd{as.factor}\hlstd{(}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{,}\hlnum{1}\hlstd{,}\hlnum{2}\hlstd{)),}
+                       \hlkwc{errorRate}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{,}\hlnum{0.0}\hlstd{),}
+                       \hlkwc{attributes}\hlstd{=}\hlkwd{as.factor}\hlstd{(}\hlkwd{c}\hlstd{(}\hlstr{"Base"}\hlstd{,}\hlstr{"Base"}\hlstd{,}\hlstr{"Caffeine"}\hlstd{,}\hlstr{"Caffeine"}\hlstd{,}\hlstr{"Crack"}\hlstd{,}\hlstr{"Crack"}\hlstd{,}\hlstr{"Heroin"}\hlstd{,}\hlstr{"Heroin"}\hlstd{)))}
+
+\hlcom{#Our clean model - the benchmark}
+\hlstd{oobError} \hlkwb{=} \hlnum{0.0}
+\hlstd{testError} \hlkwb{=} \hlnum{0.0}
+\hlcom{#Distributing the train and test sets}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+
+\hlcom{#Running the test 10 times}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{5}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError} \hlkwb{=} \hlstd{oobError} \hlopt{+} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{18}\hlstd{])}
+  \hlstd{testError} \hlkwb{=} \hlstd{testError} \hlopt{+} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+\hlstd{\}}
+
+\hlcom{#saving the average error rates in the matrix}
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{1}\hlstd{]} \hlkwb{=} \hlstd{oobError}\hlopt{/}\hlnum{10}
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{2}\hlstd{]} \hlkwb{=} \hlstd{testError}\hlopt{/}\hlnum{10}
+\hlstd{oobError} \hlkwb{=} \hlnum{0}
+\hlstd{testError} \hlkwb{=} \hlnum{0}
+
+\hlcom{#Model without Caffeine}
+\hlstd{df}\hlopt{$}\hlstd{Caffeine} \hlkwb{=} \hlkwa{NULL}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{6}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError} \hlkwb{=} \hlstd{oobError} \hlopt{+} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{17}\hlstd{])}
+  \hlstd{testError} \hlkwb{=} \hlstd{testError} \hlopt{+} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+\hlstd{\}}
+
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{3}\hlstd{]} \hlkwb{=} \hlstd{oobError}\hlopt{/}\hlnum{10}
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{4}\hlstd{]} \hlkwb{=} \hlstd{testError}\hlopt{/}\hlnum{10}
+\hlstd{oobError} \hlkwb{=} \hlnum{0}
+\hlstd{testError} \hlkwb{=} \hlnum{0}
+
+\hlcom{#Without Crack}
+\hlcom{#Loading clean data}
+\hlstd{df} \hlkwb{=} \hlstd{df_backup}
+\hlcom{#Dropping Crack}
+\hlstd{df}\hlopt{$}\hlstd{Crack} \hlkwb{=} \hlkwa{NULL}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{12}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError} \hlkwb{=} \hlstd{oobError} \hlopt{+} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{18}\hlstd{])}
+  \hlstd{testError} \hlkwb{=} \hlstd{testError} \hlopt{+} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+\hlstd{\}}
+
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{5}\hlstd{]} \hlkwb{=} \hlstd{oobError}\hlopt{/}\hlnum{10}
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{6}\hlstd{]} \hlkwb{=} \hlstd{testError}\hlopt{/}\hlnum{10}
+
+\hlcom{#Without Heroin}
+\hlcom{#Loading clean data}
+\hlstd{df} \hlkwb{=} \hlstd{df_backup}
+\hlcom{#Dropping Heroin}
+\hlstd{df}\hlopt{$}\hlstd{Heroin} \hlkwb{=} \hlkwa{NULL}
+\hlkwd{set.seed}\hlstd{(}\hlnum{3}\hlstd{)}
+\hlstd{trainingRowIndex} \hlkwb{=} \hlkwd{sample}\hlstd{(}\hlnum{1}\hlopt{:}\hlkwd{nrow}\hlstd{(df),} \hlnum{0.8}\hlopt{*}\hlkwd{nrow}\hlstd{(df))}
+\hlstd{train} \hlkwb{=} \hlstd{df[trainingRowIndex,]}
+\hlstd{test} \hlkwb{=} \hlstd{df[}\hlopt{-}\hlstd{trainingRowIndex,]}
+\hlkwa{for}\hlstd{(i} \hlkwa{in} \hlnum{1}\hlopt{:}\hlnum{10}\hlstd{)\{}
+  \hlstd{fit} \hlkwb{=} \hlkwd{randomForest}\hlstd{(}\hlkwd{as.factor}\hlstd{(Cannabis)}\hlopt{~}\hlstd{.,} \hlkwc{data}\hlstd{=train,} \hlkwc{mtry}\hlstd{=}\hlnum{12}\hlstd{,} \hlkwc{ntree}\hlstd{=}\hlnum{400}\hlstd{)}
+  \hlstd{oobError} \hlkwb{=} \hlstd{oobError} \hlopt{+} \hlstd{fit}\hlopt{$}\hlstd{err.rate[,}\hlnum{1}\hlstd{][}\hlnum{400}\hlstd{]}
+  \hlstd{probs} \hlkwb{=} \hlkwd{predict}\hlstd{(fit,} \hlkwc{newdata}\hlstd{=test[}\hlopt{-}\hlnum{18}\hlstd{])}
+  \hlstd{testError} \hlkwb{=} \hlstd{testError} \hlopt{+} \hlkwd{with}\hlstd{(test,} \hlkwd{mean}\hlstd{(probs}\hlopt{!=}\hlstd{test}\hlopt{$}\hlstd{Cannabis))}
+\hlstd{\}}
+
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{7}\hlstd{]} \hlkwb{=} \hlstd{oobError}\hlopt{/}\hlnum{10}
+\hlstd{tests}\hlopt{$}\hlstd{errorRate[}\hlnum{8}\hlstd{]} \hlkwb{=} \hlstd{testError}\hlopt{/}\hlnum{10}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+Now we plot the results:
+
+\begin {figure}[H]
+\begin {center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{ggplot}\hlstd{(}\hlkwc{data}\hlstd{=tests,} \hlkwd{aes}\hlstd{(}\hlkwc{x}\hlstd{=attributes,} \hlkwc{y}\hlstd{=errorRate,} \hlkwc{fill}\hlstd{=}\hlkwd{factor}\hlstd{(type)))} \hlopt{+}
+  \hlkwd{geom_bar}\hlstd{(}\hlkwc{stat}\hlstd{=}\hlstr{"identity"}\hlstd{,} \hlkwc{position}\hlstd{=}\hlstr{"dodge"}\hlstd{)} \hlopt{+}
+  \hlkwd{scale_fill_discrete}\hlstd{(}\hlkwc{name}\hlstd{=}\hlstr{"Error rates"}\hlstd{,}
+                      \hlkwc{breaks}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{1}\hlstd{,} \hlnum{2}\hlstd{),}
+                      \hlkwc{labels}\hlstd{=}\hlkwd{c}\hlstd{(}\hlstr{"OOB Error"}\hlstd{,} \hlstr{"Test Error"}\hlstd{))} \hlopt{+}
+  \hlkwd{xlab}\hlstd{(}\hlstr{"Attributes"}\hlstd{)}\hlopt{+}\hlkwd{ylab}\hlstd{(}\hlstr{"Error rate"}\hlstd{)} \hlopt{+}
+  \hlkwd{scale_y_continuous}\hlstd{(}\hlkwc{limits}\hlstd{=}\hlkwd{c}\hlstd{(}\hlnum{0.075}\hlstd{,}\hlnum{0.2}\hlstd{),}\hlkwc{oob} \hlstd{= rescale_none)} \hlopt{+}
+  \hlkwd{theme_minimal}\hlstd{()}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=.7\linewidth]{figure/unnamed-chunk-9-1} 
+
+\end{knitrout}
+\caption {Accuracy differency when Caffeine, Crack and Heroin are removed}
+\label{fig8}
+\end {center}
+\end {figure}
+
+Looking at \textit{Figure8}, we see straight away that taking Heroin out of the model produces the worst results. The other three models have similar error rates, but removing Caffeine could be slightly benefitial to the model.
+
+\end{document}
